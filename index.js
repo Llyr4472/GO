@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const connectDB = require("./db");
 const Shortlink = require("./models/Shortlink");
-const User = require("./models/User");
 const initializePassport = require("./passport");
 
 const app = express();
