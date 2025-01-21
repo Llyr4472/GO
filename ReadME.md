@@ -1,6 +1,6 @@
 # Go - URL Redirection Service
 
-A simple **URL redirection service** with an admin panel for managing custom shortlinks. Built with **Node.js**, **Express**, **MongoDB**, and **Bootstrap**.
+Your own self-hosted URL shortener/redirection service with an admin panel. Built with **Node.js**, **Express**, **MongoDB**, and **Bootstrap**.
 
 ---
 
