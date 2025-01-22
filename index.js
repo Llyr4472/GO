@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
@@ -25,15 +24,6 @@ app.use(
     secret: process.env.SESSION_SECRET, // Use an environment variable for the secret key
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ // Use MongoDB for session storage
-      mongoUrl: process.env.MONGODB_URI,
-      ttl: 14 * 24 * 60 * 60, // 14 days
-    }),
-    cookie: {
-      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
-    },
   })
 );
 
