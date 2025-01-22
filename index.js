@@ -18,12 +18,24 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-// Session setup
+// Secure session setup
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: process.env.SESSION_SECRET, // Use an environment variable for the secret key
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI, // Store sessions in MongoDB
+      ttl: 14 * 24 * 60 * 60, // 14 days
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
   })
 );
 
