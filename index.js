@@ -73,11 +73,7 @@ app.post(
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true,
-  }),
-  (req, res, next) => {
-    console.log("Login request received");
-    next();
-  }
+  })
 );
 
 // Logout route
