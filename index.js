@@ -1,23 +1,27 @@
+require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
+const path = require("path"); // Add this line
 const connectDB = require("./db");
 const Shortlink = require("./models/Shortlink");
 const initializePassport = require("./passport");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
-app.use(express.static("public"));
 
-require("dotenv").config(); // Load environment variables
+// Set the views directory
+app.set("views", path.join(__dirname, "views")); // Add this line
+app.set("view engine", "ejs");
+
+app.use(express.static("public"));
 
 // Session setup
 app.use(
   session({
-    secret: "your-secret-key", // Replace with a strong secret key
+    secret: "your-secret-key",
     resave: false,
     saveUninitialized: false,
   })
@@ -92,7 +96,7 @@ app.post("/delete/:id", isAuthenticated, async (req, res) => {
   res.redirect("/");
 });
 
-// Redirect logic (for shortlinks) - MUST COME LAST
+// Redirect logic (for shortlinks)
 app.get("/:slug", async (req, res) => {
   const { slug } = req.params;
   const shortlink = await Shortlink.findOne({ slug });
@@ -109,4 +113,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
