@@ -4,7 +4,7 @@ const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
-const path = require("path"); // Add this line
+const path = require("path");
 const connectDB = require("./db");
 const Shortlink = require("./models/Shortlink");
 const initializePassport = require("./passport");
@@ -13,22 +13,19 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set the views directory
-app.set("views", path.join(__dirname, "views")); // Add this line
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-// Secure session setup
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-
+// Session setup
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // Use an environment variable for the secret key
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI, // Store sessions in MongoDB
+    store: MongoStore.create({ // Use MongoDB for session storage
+      mongoUrl: process.env.MONGODB_URI,
       ttl: 14 * 24 * 60 * 60, // 14 days
     }),
     cookie: {
