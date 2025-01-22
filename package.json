@@ -21,7 +21,6 @@
     "express-session": "^1.18.1",
     "mongoose": "^8.9.5",
     "passport": "^0.7.0",
-    "passport-local": "^1.0.0",
-    "vercel": "^39.3.0"
+    "passport-local": "^1.0.0"
   }
 }
