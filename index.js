@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
@@ -61,7 +62,7 @@ const isAuthenticated = (req, res, next) => {
   res.redirect("/login");
 };
 
-// Login routes (MUST COME BEFORE THE REDIRECT LOGIC)
+// Login routes
 app.get("/login", (req, res) => {
   res.render("login", { messages: req.flash() });
 });
