@@ -62,8 +62,12 @@ app.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
-    failureFlash: true, // Enable flash messages for failed login
-  })
+    failureFlash: true,
+  }),
+  (req, res, next) => {
+    console.log("Login request received");
+    next();
+  }
 );
 
 // Logout route
